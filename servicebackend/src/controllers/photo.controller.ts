@@ -2,7 +2,7 @@ import {Request, Response, request} from 'express';
 import path from "path";
 import fs from "fs-extra";
 
-import Photo from "../models/Photo";
+import Photo, {IPhoto} from "../models/Photo";
 
 export async function getPhotos(req: Request, res: Response): Promise<Response>{
     const photos = await Photo.find();
@@ -12,24 +12,18 @@ export async function getPhotos(req: Request, res: Response): Promise<Response>{
 
 export async function getPhoto(req: Request, res: Response): Promise<Response>{
     const photo = await Photo.findById(req.params.id); // con await lo transformo en objeto
-    return res.json({photo});
+    return res.json(photo);
 }
 
 export async function createPhoto(req: Request, res: Response): Promise<Response>{
 
     const {title, description} = req.body;
-    //console.log(req.file);
     const newPhoto = {
         title: title,
         description: description,
         imagePath: req.file.path
     };
-
-    //console.log('Saving photo');
-    //console.log(req.body);
-
     const photo = new Photo(newPhoto);
-    //console.log(photo);
     await photo.save();
     return res.json({
         message: 'Photo successfully saved',

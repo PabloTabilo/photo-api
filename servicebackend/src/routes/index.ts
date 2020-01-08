@@ -1,16 +1,16 @@
 import {Router} from 'express';
 const router = Router();
 
-import { createPhoto, getPhotos, getPhoto, deletePhoto, updatePhoto } from "../controllers/photo.controller";
 import multer from "../libs/multer";
+import { createPhoto, getPhotos, getPhoto, deletePhoto, updatePhoto } from "../controllers/photo.controller";
 
 router.route('/photos')
-    .post(multer.single('image'),createPhoto) // subir una imagen con un nombre
     .get(getPhotos)
+    .post(multer.single('image'),createPhoto); // subir una imagen con un nombre
 
 router.route('/photos/:id')
     .get(getPhoto)
     .delete(deletePhoto)
-    .put(updatePhoto)
+    .put(updatePhoto);
 
-export default router
+export default router;

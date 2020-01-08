@@ -7,9 +7,9 @@ const schema = new Schema({
 });
 
 // Hereda entre comillas el formato o estructura
-interface IPhoto extends Document{
-    title: string,
-    description: string,
+export interface IPhoto extends Document{
+    title: string;
+    description: string;
     imagePath: string;
 }
 
